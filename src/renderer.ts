@@ -156,11 +156,11 @@ export class Renderer {
     } catch (e) {
       console.error(e);
     }
-
-    await page.evaluate(async () => {
-      // eslint-disable-next-line @typescript-eslint/no-explicit-any
-      return await (window as any).wendertronWait;
-    });
+    if (response)
+      await page.evaluate(async () => {
+        // eslint-disable-next-line @typescript-eslint/no-explicit-any
+        return await (window as any).wendertronWait;
+      });
 
     if (!response) {
       console.error('response does not exist');
