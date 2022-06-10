@@ -120,10 +120,11 @@ export class Renderer {
     }
 
     await page.setExtraHTTPHeaders(this.config.reqHeaders);
-
+    await page.setExtraHTTPHeaders({ 'x-is-wendertron': 'true' });
     page.evaluateOnNewDocument('customElements.forcePolyfill = true');
     page.evaluateOnNewDocument('ShadyDOM = {force: true}');
     page.evaluateOnNewDocument('ShadyCSS = {shimcssproperties: true}');
+    page.evaluateOnNewDocument('window.wendertronWait = null;');
 
     await page.setRequestInterception(true);
 
@@ -155,6 +156,11 @@ export class Renderer {
     } catch (e) {
       console.error(e);
     }
+
+    await page.evaluate(async () => {
+      // eslint-disable-next-line @typescript-eslint/no-explicit-any
+      return await (window as any).wendertronWait;
+    });
 
     if (!response) {
       console.error('response does not exist');
