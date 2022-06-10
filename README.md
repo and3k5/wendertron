@@ -1,9 +1,13 @@
-# Rendertron
+# Wendertron
 
 [![CI](https://github.com/GoogleChrome/rendertron/workflows/CI/badge.svg)](https://github.com/GoogleChrome/rendertron/actions)
 [![NPM package](https://img.shields.io/npm/v/rendertron.svg)](https://npmjs.org/package/rendertron)
 
+> Rendertron with modifications
 > Rendertron is a headless Chrome rendering solution designed to render & serialise web pages on the fly.
+
+#### Modifications
+Modifications is documented [here](modifications.md)
 
 #### :hammer: Built with [Puppeteer](https://github.com/GoogleChrome/puppeteer)
 
