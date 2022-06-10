@@ -156,11 +156,6 @@ export class Renderer {
     } catch (e) {
       console.error(e);
     }
-    if (response)
-      await page.evaluate(async () => {
-        // eslint-disable-next-line @typescript-eslint/no-explicit-any
-        return await (window as any).wendertronWait;
-      });
 
     if (!response) {
       console.error('response does not exist');
@@ -222,6 +217,10 @@ export class Renderer {
       })
       .catch(() => undefined);
 
+    await page.evaluate(async () => {
+      // eslint-disable-next-line @typescript-eslint/no-explicit-any
+      return await (window as any).wendertronWait;
+    });
     // Remove script & import tags.
     await page.evaluate(stripPage);
     // Inject <base> tag with the origin of the request (ie. no path).
