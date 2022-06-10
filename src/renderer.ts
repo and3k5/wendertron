@@ -217,10 +217,17 @@ export class Renderer {
       })
       .catch(() => undefined);
 
-    await page.evaluate(async () => {
+    const timeoutTask = new Promise(function (res) {
+      setTimeout(() => res(null), 30000);
+    });
+
+    const wendertronWaitTask = page.evaluate(async () => {
       // eslint-disable-next-line @typescript-eslint/no-explicit-any
       return await (window as any).wendertronWait;
     });
+
+    await Promise.race([timeoutTask, wendertronWaitTask]);
+
     // Remove script & import tags.
     await page.evaluate(stripPage);
     // Inject <base> tag with the origin of the request (ie. no path).
